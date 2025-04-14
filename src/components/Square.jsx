@@ -1,34 +1,25 @@
-import { useEffect, useState } from "react";
-import Cell from "./Cell.jsx"
+import React, { useEffect, useState } from "react";
+import Cell from "./Cell.jsx";
 
 
 function Square () {
-    const [isValid, setIsValid] = useState(true);
-
-    const squareMatrix = [[], [], [], [], [], [], [], [], []];
-
-    // cells that are inside of the square
-    let cells = [];
+    const [squareMatrix, setSquareMatrix] = useState(Array.from({length: 9}, () => ''));
 
     // function handles user input from 'Cell.jsx'
-    function handleInput (input) {
-        if (squareMatrix.includes(input)) {
-
-            // NOTE: Abfrage funktioniert, nur wird der Status von 'isValid' nicht direkt geupdatet
-            console.log("Zweimal die selbe Nummer");
-            
-            setIsValid(false)
-            return;
-        }
-        
+    function handleInput (value, index) {
         // push user input to squareMatrix
-        squareMatrix.push(input);
+        const updateMatrix = [...squareMatrix];
+        updateMatrix[index] = value;
+        setSquareMatrix(updateMatrix)
     }
     
-    // generates cells for each row
-    squareMatrix.forEach((cell, index) => {    
-        cells.push(<Cell inputValidationStatus={isValid} input={handleInput} key={`${cell}`}/>);
-    })
+    // generates cells
+    const cells = squareMatrix.map((_, index) => (
+        <Cell
+            input={(value) => handleInput(value, index)}
+            key={index}
+        />
+    ));
 
     return (
         <div className="square" style={{ display: 'grid', gridTemplateColumns: `repeat(${3}, 1fr)`, gap: '10px' }}>
