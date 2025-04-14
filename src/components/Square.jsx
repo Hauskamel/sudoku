@@ -27,7 +27,7 @@ function Square () {
     
     // generates cells for each row
     squareMatrix.forEach((cell, index) => {    
-        cells.push(<Cell inputValidationStatus={isValid} input={handleInput(index)} key={`${cell}`}/>);
+        cells.push(<Cell inputValidationStatus={isValid} input={handleInput} key={`${cell}`}/>);
     })
 
     return (

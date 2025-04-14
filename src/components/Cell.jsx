@@ -1,6 +1,8 @@
 function Cell ({ input, inputValidationStatus }) {
 
     function setInput (e) {
+        console.log(e.target.value);
+        
         input(e.target.value)        
         console.log(inputValidationStatus);
     }
