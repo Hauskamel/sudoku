@@ -27,7 +27,6 @@ function Square () {
     
     // generates cells for each row
     squareMatrix.forEach((cell, index) => {    
-feature/refactor-project-setup
         cells.push(<Cell inputValidationStatus={isValid} input={handleInput} key={`${cell}`}/>);
     })
 
