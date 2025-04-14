@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Cell from "./Cell.jsx"
 
+
 function Square () {
     const [isValid, setIsValid] = useState(true);
 
@@ -26,7 +27,7 @@ function Square () {
     
     // generates cells for each row
     squareMatrix.forEach((cell, index) => {    
-        cells.push(<Cell inputValidationStatus={isValid}  input={handleInput(index)} key={`${cell}`}/>);
+        cells.push(<Cell inputValidationStatus={isValid} input={handleInput(index)} key={`${cell}`}/>);
     })
 
     return (
