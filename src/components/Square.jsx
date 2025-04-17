@@ -5,7 +5,13 @@ import Cell from "./Cell.jsx";
 function Square () {
     // sets an array of ['', '', '', '', '', '', '', '', '']
     const [squareMatrix, setSquareMatrix] = useState(Array.from({length: 9}, () => ''));
-    const [isValid, setIsValid] = useState(true);
+
+    // NOTE: 1. hier state 'resetIndex' erstellen, um den Index der Zelle mit dem Duplikat zu speichern
+    //          Das ermöglicht dem Parent Component (Square) dem Child (Cell) zu sagen "Hey Cell {index}, you typed a duplicate -> reset yourself."
+
+
+
+
 
     // function handles user input from 'Cell.jsx'
     function handleInput (input, index) {
@@ -18,7 +24,6 @@ function Square () {
         )
 
         if (isDuplicate) {
-            setIsValid(false)
             return;
         }
         
@@ -34,6 +39,8 @@ function Square () {
         <Cell
             input={(input) => handleInput(input, index)}
             key={index}
+            // NOTE: 2. Hier Zelle über dessen Index Bescheid geben (Parent sagt Cell, welchen Index diese hat, da Index von Parent bestimmt wird)
+
         />
     ));
 
