@@ -10,18 +10,6 @@ function Square () {
     //          Das ermöglicht dem Parent Component (Square) dem Child (Cell) zu sagen "Hey Cell {index}, you typed a duplicate -> reset yourself."
     const [resetIndex, setResetIndex] = useState(null)
 
-
-
-
-
-
-
-
-
-
-
-
-
     // function handles user input from 'Cell.jsx'
     function handleInput (input, index) {
         // shallow copy squareMatrix array
@@ -29,15 +17,14 @@ function Square () {
 
         // square alredy contains that number
         const isDuplicate = updateMatrix.some(
-            (elem, i) => elem === input && i !== index // returns true or false when checking if array contains input 
+            // checks if some element in the 'updateMatrix' Array matches with 'inut' AND if the index of the element in the updateMatrix Array DOES NOT equal the index of the Cell the input comes from (itself)
+            (elem, i) => elem === input && i !== index
         )
 
         if (isDuplicate) {
-            console.log("Ja, es handelt sich um ein Duplikat");
-            
             // reset index
             setResetIndex(index)
-            return;
+            // return;
         }
         
         // replace input at index in updateMatrix array
