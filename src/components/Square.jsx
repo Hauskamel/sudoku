@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Cell from "./Cell.jsx";
 
 
-function Square () {
+function Square ({ errors }) {
     // sets an array of ['', '', '', '', '', '', '', '', '']
     const [squareMatrix, setSquareMatrix] = useState(Array.from({length: 9}, () => ''));
+    const [errorCounter, setErrorCounter] = useState(0);
 
     // NOTE: 1. hier state 'resetIndex' erstellen, um den Index der Zelle mit dem Duplikat zu speichern - State ursprünglich auf "null"
     //          Das ermöglicht dem Parent Component (Square) dem Child (Cell) zu sagen "Hey Cell {index}, you typed a duplicate -> reset yourself."
@@ -22,8 +23,14 @@ function Square () {
         )
 
         if (isDuplicate) {
+            const dummyCounter = errorCounter + 1
+            setErrorCounter(dummyCounter)
+
             // reset index
-            setResetIndex(index)
+            setTimeout(() => {
+                setResetIndex(index)
+            }, 1000);
+            window.alert("Diese Zahl existiert in diesem 3x3 Block bereits. + Fehler: " + dummyCounter)
             return;
         }
         
