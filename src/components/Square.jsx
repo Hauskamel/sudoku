@@ -1,40 +1,64 @@
-import { useEffect, useState } from "react";
-import Cell from "./Cell.jsx"
+import React, { useEffect, useState } from "react";
+import Cell from "./Cell.jsx";
 
 
 function Square () {
-    const [isValid, setIsValid] = useState(true);
+    // sets an array of ['', '', '', '', '', '', '', '', '']
+    const [squareMatrix, setSquareMatrix] = useState(Array.from({length: 9}, () => ''));
 
-    const squareMatrix = [[], [], [], [], [], [], [], [], []];
+    // NOTE: 1. hier state 'resetIndex' erstellen, um den Index der Zelle mit dem Duplikat zu speichern - State ursprünglich auf "null"
+    //          Das ermöglicht dem Parent Component (Square) dem Child (Cell) zu sagen "Hey Cell {index}, you typed a duplicate -> reset yourself."
+    const [resetIndex, setResetIndex] = useState(null)
 
-    // cells that are inside of the square
-    let cells = [];
+
+
+
 
     // function handles user input from 'Cell.jsx'
-    function handleInput (input) {
-        if (squareMatrix.includes(input)) {
+    function handleInput (input, index) {
+        // shallow copy squareMatrix array
+        const updateMatrix = [...squareMatrix];
 
-            // NOTE: Abfrage funktioniert, nur wird der Status von 'isValid' nicht direkt geupdatet
-            console.log("Zweimal die selbe Nummer");
-            
-            setIsValid(false)
+        // square alredy contains that number
+        const isDuplicate = updateMatrix.some(
+            (elem, i) => elem === input && i !== index // returns true or false when checking if array contains input 
+        )
+
+        if (isDuplicate) {
+            setResetIndex(index)
             return;
         }
         
-        // push user input to squareMatrix
-        squareMatrix.push(input);
+        // replace input at index in updateMatrix array
+        updateMatrix[index] = input;
+        // updates the squareMatrix
+        setSquareMatrix(updateMatrix);
+        // reset index
+        setResetIndex(null);
     }
+
     
-    // generates cells for each row
-    squareMatrix.forEach((cell, index) => {    
-        cells.push(<Cell inputValidationStatus={isValid} input={handleInput} key={`${cell}`}/>);
-    })
+    // generates cells
+    const cells = squareMatrix.map((_, index) => (
+        <Cell
+            input={(input) => handleInput(input, index)}
+            key={index}
+            shouldReset={index === resetIndex}
+            // NOTE: 2. Hier Zelle über dessen Index Bescheid geben (Parent sagt Cell, welchen Index diese hat, da Index von Parent bestimmt wird)
+
+        />
+    ));
+
+    
 
     return (
-        <div className="square" style={{ display: 'grid', gridTemplateColumns: `repeat(${3}, 1fr)`, gap: '10px' }}>
+        <div 
+            className="square" 
+            style={{ display: 'grid', gridTemplateColumns: `repeat(${3}, 1fr)`, gap: '10px' }}
+        >
             {cells}
         </div>
     )
 }
 
-export default Square 
+export default Square
