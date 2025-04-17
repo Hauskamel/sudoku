@@ -1,6 +1,6 @@
 import React , {useRef, useEffect} from 'react';
 
-function Cell ({ input, }) { // NOTE: 3. Hier neuen Prop erstellen 
+function Cell ({ input, shouldReset }) { // NOTE: 3. Hier neuen Prop erstellen 
     const inputRef = useRef();
 
     function setInput (e) {
@@ -9,7 +9,10 @@ function Cell ({ input, }) { // NOTE: 3. Hier neuen Prop erstellen
 
     useEffect(() => {
         // NOTE: 3. (gehört zu Prop oben) useEffect nach Prop richten -> wenn "true", dann reset input state zu ""
-    }, [])
+        if (shouldReset) {
+            inputRef.current.value = ""
+        }
+    }, [shouldReset])
     return (
         <div className="cell">
             <input 
