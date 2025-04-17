@@ -24,7 +24,7 @@ function Square () {
         if (isDuplicate) {
             // reset index
             setResetIndex(index)
-            // return;
+            return;
         }
         
         // replace input at index in updateMatrix array
