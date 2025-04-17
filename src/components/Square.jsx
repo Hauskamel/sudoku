@@ -14,6 +14,22 @@ function Square () {
 
 
 
+
+
+
+    function generate
+
+
+
+
+
+
+
+
+
+
+
+
     // function handles user input from 'Cell.jsx'
     function handleInput (input, index) {
         // shallow copy squareMatrix array
@@ -26,6 +42,8 @@ function Square () {
 
         if (isDuplicate) {
             setResetIndex(index)
+            // reset index
+        setResetIndex(null);
             return;
         }
         
@@ -33,11 +51,8 @@ function Square () {
         updateMatrix[index] = input;
         // updates the squareMatrix
         setSquareMatrix(updateMatrix);
-        // reset index
-        setResetIndex(null);
     }
 
-    
     // generates cells
     const cells = squareMatrix.map((_, index) => (
         <Cell
@@ -48,8 +63,6 @@ function Square () {
 
         />
     ));
-
-    
 
     return (
         <div 
