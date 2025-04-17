@@ -10,6 +10,8 @@ function Cell ({ input, shouldReset }) { // NOTE: 3. Hier neuen Prop erstellen
     useEffect(() => {
         // NOTE: 3. (gehört zu Prop oben) useEffect nach Prop richten -> wenn "true", dann reset input state zu ""
         if (shouldReset) {
+            console.log("It does reset here");
+            
             inputRef.current.value = ""
         }
     }, [shouldReset])

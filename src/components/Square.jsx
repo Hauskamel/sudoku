@@ -17,14 +17,6 @@ function Square () {
 
 
 
-    function generate
-
-
-
-
-
-
-
 
 
 
@@ -41,9 +33,10 @@ function Square () {
         )
 
         if (isDuplicate) {
-            setResetIndex(index)
+            console.log("Ja, es handelt sich um ein Duplikat");
+            
             // reset index
-        setResetIndex(null);
+            setResetIndex(index)
             return;
         }
         
