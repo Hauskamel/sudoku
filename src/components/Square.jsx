@@ -25,6 +25,9 @@ function Square ({ errors }) {
         if (isDuplicate) {
             const dummyCounter = errorCounter + 1
             setErrorCounter(dummyCounter)
+            
+            // resets input
+            setResetIndex(null)
 
             // reset index
             setTimeout(() => {
