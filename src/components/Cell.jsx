@@ -7,9 +7,10 @@ function Cell ({ input, shouldReset }) { // NOTE: 3. Hier neuen Prop erstellen
         input(e.target.value)        
     }
 
+    let counter = 0;
+
     useEffect(() => {
-        // NOTE: 3. (gehört zu Prop oben) useEffect nach Prop richten -> wenn "true", dann reset input state zu ""
-        if (shouldReset) {            
+        if (shouldReset) {        
             inputRef.current.value = ""
         }
     }, [shouldReset])
